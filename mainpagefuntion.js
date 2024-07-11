@@ -946,11 +946,16 @@ function init() {
     const num = localStorage.getItem("num");
     const name = localStorage.getItem("name");
     const personal_num = num.substring(2, 4).replace(/^0+/, '');
+    const class_num = num.substring(1, 2);
+    const grade = num.substring(0, 1);
+
     console.log(data);
     console.log(email);
     console.log(num);
     console.log(name);
     console.log(personal_num);
+    console.log(class_num);
+    console.log(grade);
   }
 }
 
