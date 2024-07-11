@@ -1,0 +1,381 @@
+html{
+  margin: 0;
+  padding: 0;
+  font-size: 0.3vw;
+}
+body{
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  background-image: url("https://picsum.photos/1920/1080");
+  background-color: #4D5061;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  height: 100vh;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* 인터넷익스플로러 */
+  user-select: none;
+}
+
+.itembox{
+  display: flex;
+  justify-content: center;
+  align-content: start;
+  flex-wrap: wrap;
+  background-color: #ffffff50;
+  backdrop-filter: blur(20px);
+  border: solid white 1.7px;
+  border-radius: 3vw;
+  margin: 2vh;
+  height: 45vh;
+  padding: 1vw;
+  box-sizing: border-box;
+}
+
+#entirebox{
+  display: flex;
+}
+
+#leftbox{
+  width: 100%;
+  height: 100%;
+}
+
+#rightbox{
+
+  width: 40%;
+  height: 100%;
+}
+
+#topitem{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#bottomitem{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+#shortcuts{
+  width: 35%;
+}
+
+#music{
+  width: 65%;
+}
+
+#setting{
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 2vw; !important;
+  width: 10%;
+  justify-content: center;
+  align-content: space-evenly;
+  padding: 0; !important;
+}
+
+#bg{
+  background-image: url("source/img/bg_icon.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#randombg{
+  background-image: url("source/img/randombg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#dark{
+  background-image: url("source/img/light.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#refreshweather{
+  background-image: url("source/img/reweather.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#today{
+  width: 50%;
+  padding: 1vw;
+  box-sizing: border-box;
+}
+
+#next{
+  width: 40%;
+}
+
+#todo{
+  height: 94vh; !important;
+}
+
+.testicon{
+  height: 5vw;
+  width: 5vw;
+  border: solid black 0.1vw;
+  background-color: white;
+  border-radius: 1.3vw;
+  transition: 0.5s;
+}
+
+.testicon:hover{
+  box-shadow: 0px 0px 5px 3px rgba(255,255,255,255.41);
+  transform: scale(1.1);
+}
+
+.title{
+  display: flex;
+  justify-content: center;
+  font-weight: 300;
+  font-size: 7rem;
+  width: 15vw;
+  height: 5vh;
+  border-bottom: solid black 2px;
+  margin: 0;
+}
+
+
+#date{
+  display: flex;
+  justify-content: center;
+  font-size: 5rem;
+  font-weight: 300;
+  letter-spacing: 1rem;
+  flex-basis: 100%;
+  margin-top: 6vh;
+}
+
+#timebox{
+  display: flex;
+}
+
+.time{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  font-size: 15rem;
+  font-weight: 500;
+  background-color: #ffffff10;
+  backdrop-filter: blur(30px);
+  border: solid white 1.7px;
+  border-radius: 1.7vw;
+  width: 7.5vw;
+  height: 7.5vw;
+  margin: 0.4vw;
+}
+
+#weather{
+  display: flex;
+  justify-content: center;
+  font-size: 5rem;
+  font-weight: 300;
+  letter-spacing: 0.5rem;
+  flex-basis: 100%;
+}
+
+#shortcutbox{
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  width: 100%;
+  padding: 1.5vw;
+}
+
+.linkimg{
+  border-radius: 20%;
+  width: 6.8vw;
+  height: 6.8vw;
+  background-color: white;
+  margin: 1vw;
+  transition: 0.5s;
+  border: solid black 0.1vw;
+}
+
+.linkimg:hover{
+  box-shadow: 0px 0px 5px 3px rgba(255,255,255,255.41);
+  transform: scale(1.1);
+}
+
+.inin{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+#difull{
+  background-image: url("source/img/difull.png");
+  background-size: cover;
+}
+
+#bob{
+  background-image: url("source/img/bob.png");
+  background-size: cover;
+}
+
+#benedu{
+  background-image: url("source/img/benedu.png");
+  background-size: cover;
+}
+
+#goorm{
+  background-image: url("source/img/goorm.png");
+  background-size: cover;
+}
+
+.remaintime{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  font-size: 13rem;
+  font-weight: 500;
+  background-color: #ffffff10;
+  backdrop-filter: blur(30px);
+  border: solid white 1.7px;
+  border-radius: 1.7vw;
+  width: 7vw;
+  height: 7vw;
+  margin: 0.3vw;
+}
+
+#remaintimebox{
+  margin-top: 1vh;
+  display: flex;
+}
+
+#remaintxt{
+  display: flex;
+  justify-content: center;
+  font-size: 4rem;
+  font-weight: 300;
+  letter-spacing: 1rem;
+  flex-basis: 100%;
+  margin-top: 6.5vh;
+}
+
+#remaintime{
+  display: flex;
+  justify-content: center;
+  font-size: 15rem;
+  font-weight: 500;
+  letter-spacing: 1rem;
+  flex-basis: 100%;
+}
+
+.container{
+  margin-top: 3vh;
+  width: 16vw;
+  overflow: scroll;
+  height: 87%;
+}
+
+*{
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+div::-webkit-scrollbar {
+  display: none;
+}
+
+div{
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+#inputField{
+}
+
+#inputField{
+  background-color: #ffffff50;
+  backdrop-filter: blur(30px);
+  border: solid white 1.7px;
+  border-radius: 3vw;
+  width: 13vw;
+  height: 3vh;
+  padding-left: 0.75vw;
+}
+
+#addToDo{
+  background-color: #a09bcb;
+  backdrop-filter: blur(10px);
+  border: solid white 1.7px;
+  border-radius: 3vw;
+  width: 3.5vh;
+  height: 3.5vh;
+  font-size: 5rem;
+  font-weight: 400;
+  letter-spacing: 1rem;
+  margin-left: 0.5vw;
+  text-align: center;
+}
+
+.to-dos{
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+#inputitems{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 3vh;
+}
+
+li{
+  word-break: break-all;
+  margin-bottom: 1vh;
+}
+
+#ytbox{
+  display : flex;
+  flex-basis: 100%;
+  justify-content: center;
+  margin-top: 0.5vh;
+}
+
+#inputlink{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-top: 3vh;
+  flex-basis: 100%;
+}
+
+#addlink{
+  background-color: #a09bcb;
+  backdrop-filter: blur(10px);
+  border: solid white 1.7px;
+  border-radius: 3vw;
+  width: 3.5vh;
+  height: 3.5vh;
+  font-size: 5rem;
+  font-weight: 400;
+  letter-spacing: 1rem;
+  margin-left: 0.5vw;
+  text-align: center;
+}
+
+#inputlinkField{
+  background-color: #ffffff50;
+  backdrop-filter: blur(30px);
+  border: solid white 1.7px;
+  border-radius: 3vw;
+  width: 13vw;
+  height: 3vh;
+  padding-left: 0.75vw;
+}
+
+#ytplayer{
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+

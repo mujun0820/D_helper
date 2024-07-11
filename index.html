@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>D_helper</title>
+  <link rel="stylesheet" href="mainpagestyle.css">
+  <link rel="shortcut icon" href="source/img/D_helper.png" type="image/x-icon">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+</head>
+<body>
+<div id="entirebox">
+  <div id="leftbox">
+    <div id="topitem">
+      <div class="itembox" id="setting">
+        <input type="file" id="real-upload" accept="image/*" required multiple style="display: none;">
+        <div class="testicon" id="bg"></div>
+        <div class="testicon" id="randombg"></div>
+        <div class="testicon" id="dark"></div>
+        <div class="testicon" id="refreshweather"></div>
+      </div>
+      <div class="itembox" id="today">
+        <div class="title">Today</div>
+        <div id="date">0000.00.00</div>
+        <div id="timebox">
+          <div class="time" id="hour">00</div>
+          <div class="time" id="min">00</div>
+          <div class="time" id="sec">00</div>
+        </div>
+        <div id="weather">00시 00°C</div>
+      </div>
+      <div class="itembox" id="next">
+        <div class="title" id="trigger">Schedule</div>
+        <div id="remaintxt">Null까지 남은 시간</div>
+        <div id="remaintimebox">
+          <div class="remaintime" id="remainhour">00</div>
+          <div class="remaintime" id="remainmin">00</div>
+          <div class="remaintime" id="remainsec">00</div>
+        </div>
+      </div>
+    </div>
+    <div id="bottomitem">
+      <div class="itembox" id="shortcuts">
+        <div class="title">Shortcus</div>
+        <div id="shortcutbox">
+          <a href="https://dimigo.net/" target="_blank"><div class="linkimg" id="difull"></div></a>
+          <a href="https://xn--299a1v27nvthhjj.com/" target="_blank"><div class="linkimg" id="bob"></div></a>
+          <a href="https://benedu.co.kr/" target="_blank"><div class="linkimg" id="benedu"></div></a>
+          <a href="https://dimigo.goorm.io/" target="_blank"><div class="linkimg" id="goorm"></div></a>
+        </div>
+      </div>
+
+      <div class="itembox" id="music">
+        <div class="title">Music</div>
+        <div id="inputlink">
+          <input id="inputlinkField" type="text" autocomplete="off" onfocus="ytfocuson()" onblur="ytfocusoff()">   <!--text 입력창(할일 입력창) 만들기-->
+          <button id="addlink">  </button>     <!-- + 버튼 만들기 -->
+        </div>
+        <div id="ytbox">
+          <iframe width="500" height="280" src="https://www.youtube.com/embed/ANdWCpDgqw8" id="ytplayer" frameborder="0" ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="rightbox">
+    <div class="itembox" id="todo">
+      <div class="title">Todo</div>
+      <div class="container">
+        <div id="inputitems">
+          <input id="inputField" type="text" autocomplete="off" onfocus="todofocuson()" onblur="todofocusoff()">   <!--text 입력창(할일 입력창) 만들기-->
+          <button id="addToDo">  </button>     <!-- + 버튼 만들기 -->
+        </div>
+        <div class="to-dos" id="toDoList"> </div>  <!-- id = inputField에 할일이 입력되고 + 버튼이 눌리면 할일이 나타날 공간 만들기-->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="mainpagefuntion.js"></script>
+</body>
+</html>
