@@ -17,6 +17,8 @@ body{
   user-select: none;
 }
 
+input:focus {outline:none;}
+
 .itembox{
   display: flex;
   justify-content: center;
