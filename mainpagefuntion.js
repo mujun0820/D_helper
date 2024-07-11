@@ -945,7 +945,7 @@ function init() {
     const email = localStorage.getItem("email");
     const num = localStorage.getItem("num");
     const name = localStorage.getItem("name");
-    const personal_num = num.substring(2, 3).replace(/^0+/, '');
+    const personal_num = num.substring(2, 4).replace(/^0+/, '');
     console.log(data);
     console.log(email);
     console.log(num);
