@@ -906,7 +906,7 @@ const getWeather = (lat, lon) => {
       const place = weatherjson.name;
       const description = weatherjson.weather[0].description;
       fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=5&appid=${API_KEY}`
+        `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=5&appid=${API_KEY}`
       )
         .then((kolocationresponse) => {
           return kolocationresponse.json();
@@ -939,7 +939,18 @@ function init() {
     const token = location.href.split("?")[1].split("&").filter(e => e.split("=")[0] === "token")[0].split("=")[1];
     const dataBase64 = token.split(".")[1];
     const data = JSON.parse(window.atob(dataBase64)).data
+    const email = data.email;
+    const school_year = data.number.substring(0);
+    const class_num = data.number.substring(1);
+    const personal_num = data.number.substring(2, 3);
+    if(personal_num.substring(0) === '0'){
+      const personal_num = data.number.substring(3);
+    }
+    else{
+      const personal_num = data.number.substring(2, 3);
+    }
     console.log(data);
+    console.log(`${school_year}학년 ${class_num}반 ${personal_num}번`);
     localStorage.setItem("email", data.email);
   }
 }
