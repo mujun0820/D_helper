@@ -960,10 +960,32 @@ function init() {
 }
 
 window.onload = () => init();
+window.onload = () => timetable()
 
 //시간표
 function timetable(){
   fetch(
-      'https://dimigo.net/api/timetable/[grade]/[class]'
+      `https://dimigo.net/api/timetable/1/3`
   )
+      .then((timeres) => {
+        return timeres.json();
+      })
+      .then((timejson) =>{
+        console.log(timejson);
+      })
 }
+
+
+
+// const getWeather = (lat, lon) => {
+//   fetch(
+//       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=kr`
+//   )
+//       .then((weatherresponse) => {
+//         return weatherresponse.json();
+//       })
+//       .then((weatherjson) => {
+//         console.log(weatherjson);
+//         const temperature = Math.round(weatherjson.main.temp);
+//         const place = weatherjson.name;
+//         const description = weatherjson.weather[0].description;
