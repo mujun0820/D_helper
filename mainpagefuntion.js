@@ -938,19 +938,11 @@ function init() {
   }else {
     const token = location.href.split("?")[1].split("&").filter(e => e.split("=")[0] === "token")[0].split("=")[1];
     const dataBase64 = token.split(".")[1];
-    const data = JSON.parse(window.atob(dataBase64)).data
+    const data = JSON.parse(window.atob(dataBase64)).data;
     const email = data.email;
-    const school_year = data.number.substring(0, 0);
-    const class_num = data.number.substring(1);
-    const personal_num = data.number.substring(2, 3);
-    if(personal_num.substring(0, 0) === '0'){
-      const personal_num = data.number.substring(3, 3);
-    }
-    else{
-      const personal_num = data.number.substring(2, 3);
-    }
+    const num = data.number;
     console.log(data);
-    console.log(`${school_year}학년 ${class_num}반 ${personal_num}번`);
+    console.log(num);
     localStorage.setItem("email", email);
   }
 }
