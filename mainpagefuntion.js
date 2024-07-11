@@ -933,13 +933,18 @@ window.onload=function () {
 function init() {
   if (location.href.indexOf("token") === -1) {
     if (!localStorage.getItem("email") || localStorage.getItem("email") === '') {
-      location.href = "./loginpage.html";
+      location.href = "loginpage.html";
     }
   }else {
     const token = location.href.split("?")[1].split("&").filter(e => e.split("=")[0] === "token")[0].split("=")[1];
     const dataBase64 = token.split(".")[1];
     const data = JSON.parse(window.atob(dataBase64)).data
-
+    console.log(data);
     localStorage.setItem("email", data.email);
   }
+}
+
+window.onload
+{
+  init();
 }
