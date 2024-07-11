@@ -951,11 +951,9 @@ function init() {
     }
     console.log(data);
     console.log(`${school_year}학년 ${class_num}반 ${personal_num}번`);
-    localStorage.setItem("email", data.email);
+    localStorage.setItem("email", email);
   }
 }
 
-window.onload
-{
-  init();
-}
+window.onload = () => init();
+
