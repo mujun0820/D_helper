@@ -938,7 +938,7 @@ function init() {
   }else {
     const token = location.href.split("?")[1].split("&").filter(e => e.split("=")[0] === "token")[0].split("=")[1];
     const dataBase64 = token.split(".")[1];
-    const data = JSON.parse(window.atob(dataBase64)).data;
+    const data = JSON.parse(decodeURIComponent(escape(window.atob(dataBase64)))).data;
     const email = data.email;
     const num = data.number;
     console.log(data);
