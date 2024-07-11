@@ -939,11 +939,16 @@ function init() {
     const token = location.href.split("?")[1].split("&").filter(e => e.split("=")[0] === "token")[0].split("=")[1];
     const dataBase64 = token.split(".")[1];
     const data = JSON.parse(decodeURIComponent(escape(window.atob(dataBase64)))).data;
-    const email = data.email;
-    const num = data.number;
+    localStorage.setItem("email", data.email);
+    localStorage.setItem("num", data.number);
+    localStorage.setItem("name", data.name);
+    const email = localStorage.getItem("email");
+    const num = localStorage.getItem("num");
+    const name = localStorage.getItem("name");
     console.log(data);
+    console.log(email);
     console.log(num);
-    localStorage.setItem("email", email);
+    console.log(name);
   }
 }
 
