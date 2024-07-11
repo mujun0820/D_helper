@@ -940,11 +940,11 @@ function init() {
     const dataBase64 = token.split(".")[1];
     const data = JSON.parse(window.atob(dataBase64)).data
     const email = data.email;
-    const school_year = data.number.substring(0);
+    const school_year = data.number.substring(0, 0);
     const class_num = data.number.substring(1);
     const personal_num = data.number.substring(2, 3);
-    if(personal_num.substring(0) === '0'){
-      const personal_num = data.number.substring(3);
+    if(personal_num.substring(0, 0) === '0'){
+      const personal_num = data.number.substring(3, 3);
     }
     else{
       const personal_num = data.number.substring(2, 3);
