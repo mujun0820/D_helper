@@ -1,10 +1,44 @@
-const bg = document.querySelector('#bg');
-const ranbg = document.querySelector('#randombg');
-const dark = document.querySelector('#dark');
-const realUpload = document.querySelector('#real-upload');
-const bodybg = document.querySelector('body');
+//로그인
+function init() {
+  if (location.href.indexOf("token") === -1) {
+    if (!localStorage.getItem("email") || localStorage.getItem("email") === '') {
+      location.href = "loginpage.html";
+    }
+  }else {
+    const token = location.href.split("?")[1].split("&").filter(e => e.split("=")[0] === "token")[0].split("=")[1];
+    const dataBase64 = token.split(".")[1];
+    const data = JSON.parse(decodeURIComponent(escape(window.atob(dataBase64)))).data;
+    localStorage.setItem("email", data.email);
+    localStorage.setItem("num", data.number);
+    localStorage.setItem("name", data.name);
+    const email = localStorage.getItem("email");
+    const num = localStorage.getItem("num");
+    const name = localStorage.getItem("name");
+    const personal_num = num.substring(2, 4).replace(/^0+/, '');
+    const class_num = num.substring(1, 2);
+    const grade = num.substring(0, 1);
 
-// 이미지 업로드
+    console.log(data);
+    console.log(email);
+    console.log(num);
+    console.log(name);
+    console.log(personal_num);
+    console.log(class_num);
+    console.log(grade);
+  }
+}
+window.onload = () => init();
+
+
+
+//설정바
+  //배경 업로드
+const bodybg = document.querySelector('body');
+const bg = document.querySelector('#bg');
+const realUpload = document.querySelector('#real-upload');
+
+bg.addEventListener('click', () => realUpload.click());
+realUpload.addEventListener('change', getImageFiles);
 function getImageFiles(e) {
   const files = e.currentTarget.files;
   if (files.length > 0) {
@@ -16,51 +50,44 @@ function getImageFiles(e) {
   }
 }
 
-function randombg(){
+  //랜덤 배경
+const ranbg = document.querySelector('#randomBg');
+ranbg.addEventListener('click', randomBg)
+function randomBg(){
   bodybg.style.backgroundImage = `url("https://picsum.photos/1920/1080?random=${Math.floor(Math.random() * 100)}")`
 }
 
-bg.addEventListener('click', () => realUpload.click());
-realUpload.addEventListener('change', getImageFiles);
-
-ranbg.addEventListener('click', randombg)
-
-
-
-
-//날짜, 시간 표시
+  //날짜, 시간 표시
 
 let today = new Date();
-
 let year = today.getFullYear(); // 년도
 let month = today.getMonth() + 1;  // 월
 let date = today.getDate();  // 날짜
 let day = today.getDay();  // 요일
 let daytxt = "Null";
+let datetxt = document.querySelector('#date');
 
-if(day == 0){
+if(day === 0){
   daytxt = "일요일";
 }
-else if(day == 1){
+else if(day === 1){
   daytxt = "월요일";
 }
-else if(day == 2){
+else if(day === 2){
   daytxt = "화요일";
 }
-else if(day == 3){
+else if(day === 3){
   daytxt = "수요일";
 }
-else if(day == 4){
+else if(day === 4){
   daytxt = "목요일";
 }
-else if(day == 5){
+else if(day === 5){
   daytxt = "금요일";
 }
-else if(day == 6){
+else if(day === 6){
   daytxt = "토요일";
 }
-
-let datetxt = document.querySelector('#date');
 
 datetxt.innerHTML = (year+'.'+month+'.'+date+'.'+daytxt);
 
@@ -78,13 +105,95 @@ function updateClock() {
   secbox.innerHTML = (seconds);
 }
 
-// 매 초마다 시계 업데이트
 setInterval(() => updateClock(), 1);
-
-// 페이지 로드 시에도 시계 업데이트
 updateClock();
 
+  //날씨 표시
+let wbutton = document.querySelector('#refreshWeather');
+const API_KEY = 'd446c98bdfa541df10b9ecbe492387d4';
+let weatherdes = document.querySelector('#weather');
+const wsuccess = (position) => {
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
+  getWeather(latitude, longitude);
+  console.log(position)
+}
 
+const wfail = () => {
+  alert("위치 정보를 불러올 수 없습니다")
+}
+
+const getWeather = (lat, lon) => {
+  fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=kr`
+  )
+      .then((weatherresponse) => {
+        return weatherresponse.json();
+      })
+      .then((weatherjson) => {
+        console.log(weatherjson);
+        const temperature = Math.round(weatherjson.main.temp);
+        const place = weatherjson.name;
+        const description = weatherjson.weather[0].description;
+        fetch(
+            `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=5&appid=${API_KEY}`
+        )
+            .then((kolocationresponse) => {
+              return kolocationresponse.json();
+            })
+            .then((kolocationjson) => {
+              console.log(kolocationjson);
+              const kolocation = kolocationjson[0].local_names.ko;
+              weatherdes.innerHTML = (`${kolocation} ${temperature}°C`);
+              console.log(kolocation, temperature);
+            })
+      })
+}
+
+wbutton.addEventListener('click', () => {
+  navigator.geolocation.getCurrentPosition(wsuccess, wfail);
+})
+
+window.onload=function () {
+  navigator.geolocation.getCurrentPosition(wsuccess, wfail);
+}
+
+//배경 색 복붙
+
+function handlePaste(event) {
+  const clipboardData = (event.clipboardData || window.clipboardData).getData('text').trim();
+  const mainBody = document.querySelector('body');
+
+  // 정규식을 이용해 클립보드의 데이터가 RGB 값인지 또는 헥스 코드인지 확인
+  const rgbPattern = /^\(?\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)?$/;
+  const hexPattern = /^#?([0-9A-F]{3}){1,2}$/i;
+
+  if (rgbPattern.test(clipboardData)) {
+    mainBody.style.backgroundImage = 'none';
+    // RGB 값일 경우 앞에 'rgb(' 와 ')'를 추가
+    const formattedRgb = clipboardData.replace(/[^\d,]/g, '').trim(); // 숫자와 쉼표를 제외한 모든 문자 제거
+    mainBody.style.backgroundColor = `rgb(${formattedRgb})`;
+  } else if (hexPattern.test(clipboardData)) {
+    mainBody.style.backgroundImage = 'none';
+    // 클립보드 데이터가 '#' 없이 6자리 또는 3자리 헥스 코드인 경우 처리
+    const color = clipboardData.startsWith('#') ? clipboardData : `#${clipboardData}`;
+    mainBody.style.backgroundColor = color;
+  }
+
+  // 핸들러를 제거하여 한 번만 실행되도록 함
+  document.removeEventListener('paste', handlePaste);
+}
+
+document.addEventListener('keydown', function(event) {
+  // Ctrl+V 키가 눌렸을 때 처리
+  if ((event.ctrlKey || event.metaKey) && event.key === 'v') {
+    document.addEventListener('paste', handlePaste);
+    console.log("복사 성공")
+  }
+});
+
+
+//시간표 표시
 
 //스케쥴 표시
 const weekdayTimetable = [{
@@ -684,26 +793,26 @@ function updateTimetable() {
     const remainhour = remainingTime.substring(0, 2);
     const remainmin = remainingTime.substring(3, 5);
     const remainsec = remainingTime.substring(6, 8);
-    document.getElementById('remainhour').innerText = `${remainhour}`;
-    document.getElementById('remainmin').innerText = `${remainmin}`;
-    document.getElementById('remainsec').innerText = `${remainsec}`;
+    document.getElementById('numRemainHour').innerText = `${remainhour}`;
+    document.getElementById('numRemainMin').innerText = `${remainmin}`;
+    document.getElementById('numRemainSec').innerText = `${remainsec}`;
   } else {
-    document.getElementById('remainhour').innerText = `00`;
-    document.getElementById('remainmin').innerText = `00`;
-    document.getElementById('remainsec').innerText = `00`;
+    document.getElementById('NumRemainHour').innerText = `00`;
+    document.getElementById('numRemainMin').innerText = `00`;
+    document.getElementById('numRemainSec').innerText = `00`;
   }
 
   if (nextActivity) {
     if(nextClass === '' || nextClass === undefined){
       const nextActivityName = isWeekend ? nextActivity.name : `${nextActivity.name}`;
-      document.getElementById('remaintxt').innerText = `${nextActivityName}까지 남은 시간`;
+      document.getElementById('txtRemainTime').innerText = `${nextActivityName}까지 남은 시간`;
     }
     else{
       const nextActivityName = isWeekend ? nextActivity.name : `${nextActivity.name} (${nextClass})`;
-      document.getElementById('remaintxt').innerText = `${nextActivityName}까지 남은 시간`;
+      document.getElementById('txtRemainTime').innerText = `${nextActivityName}까지 남은 시간`;
     }
   } else {
-    document.getElementById('remaintxt').innerText = '다음 활동 없음';
+    document.getElementById('txtRemainTime').innerText = '다음 활동 없음';
   }
 }
 
@@ -713,9 +822,9 @@ updateTimetable();
 
 //todo리스트
 
-let inputBox = document.getElementById('inputField');  // 할 일 입력창
-let addToDo = document.getElementById('addToDo');      // 버튼
-let toDoList = document.getElementById('toDoList');    // 할 일 리스트창
+let inputBox = document.getElementById('inputTodoField');  // 할 일 입력창
+let addToDo = document.getElementById('btnAddTodo');      // 버튼
+let toDoList = document.getElementById('boxTodolist');    // 할 일 리스트창
 let isLinethrough = 0
 let istodofocuson = 0;
 
@@ -767,17 +876,16 @@ document.addEventListener('keydown', function(event) {
   }
 });
 
-//test
 
-//유튜브 링크 입력하면 재생
 
-let inputlinkBox = document.getElementById('inputlinkField');  // 할 일 입력창
-let addlinkbutton = document.getElementById('addlink');      // 버튼
+//유튜브 재생
+
+let inputlinkBox = document.getElementById('inputLinkField');  // 할 일 입력창
+let addlinkbutton = document.getElementById('btnAddLink');      // 버튼
 let isytfocuson = 0;
 let linksplit;
 let reallink;
-let ytplayer = document.querySelector('#ytplayer');
-let romutrigger = document.querySelector('#trigger');
+let ytplayer = document.querySelector('#YoutubePlayer');
 
 function ytfocuson(){
   isytfocuson = 1;
@@ -786,13 +894,6 @@ function ytfocuson(){
 function ytfocusoff(){
   isytfocuson = 0;
 }
-
-
-romutrigger.addEventListener('dblclick', function (){
-  ytplayer.src = (`https://www.youtube.com/embed/wLOvisqLDwI?si=89sRGA2V3JKP-5kT?autoplay=1&mute=1`);
-  console.log('romu');
-})
-
 
 addlinkbutton.addEventListener('click', function(){    // 버튼에 클릭 이벤트가 발생하면
   if (!inputlinkBox.value){
@@ -844,148 +945,4 @@ document.addEventListener('keydown', function(event) {
 
 
 
-//배경 색
 
-function handlePaste(event) {
-  const clipboardData = (event.clipboardData || window.clipboardData).getData('text').trim();
-  const mainBody = document.querySelector('body');
-
-  // 정규식을 이용해 클립보드의 데이터가 RGB 값인지 또는 헥스 코드인지 확인
-  const rgbPattern = /^\(?\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)?$/;
-  const hexPattern = /^#?([0-9A-F]{3}){1,2}$/i;
-
-  if (rgbPattern.test(clipboardData)) {
-    mainBody.style.backgroundImage = 'none';
-    // RGB 값일 경우 앞에 'rgb(' 와 ')'를 추가
-    const formattedRgb = clipboardData.replace(/[^\d,]/g, '').trim(); // 숫자와 쉼표를 제외한 모든 문자 제거
-    mainBody.style.backgroundColor = `rgb(${formattedRgb})`;
-  } else if (hexPattern.test(clipboardData)) {
-    mainBody.style.backgroundImage = 'none';
-    // 클립보드 데이터가 '#' 없이 6자리 또는 3자리 헥스 코드인 경우 처리
-    const color = clipboardData.startsWith('#') ? clipboardData : `#${clipboardData}`;
-    mainBody.style.backgroundColor = color;
-  }
-
-  // 핸들러를 제거하여 한 번만 실행되도록 함
-  document.removeEventListener('paste', handlePaste);
-}
-
-document.addEventListener('keydown', function(event) {
-  // Ctrl+V 키가 눌렸을 때 처리
-  if ((event.ctrlKey || event.metaKey) && event.key === 'v') {
-    document.addEventListener('paste', handlePaste);
-    console.log("복사 성공")
-  }
-});
-
-//날씨 구현
-let wbutton = document.querySelector('#refreshweather');
-const API_KEY = 'd446c98bdfa541df10b9ecbe492387d4';
-let weatherdes = document.querySelector('#weather');
-const wsuccess = (position) => {
-  const latitude = position.coords.latitude;
-  const longitude = position.coords.longitude;
-  getWeather(latitude, longitude);
-  console.log(position)
-}
-
-const wfail = () => {
-  alert("위치 정보를 불러올 수 없습니다")
-}
-
-const getWeather = (lat, lon) => {
-  fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=kr`
-  )
-    .then((weatherresponse) => {
-      return weatherresponse.json();
-    })
-    .then((weatherjson) => {
-      console.log(weatherjson);
-      const temperature = Math.round(weatherjson.main.temp);
-      const place = weatherjson.name;
-      const description = weatherjson.weather[0].description;
-      fetch(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${place}&limit=5&appid=${API_KEY}`
-      )
-        .then((kolocationresponse) => {
-          return kolocationresponse.json();
-        })
-        .then((kolocationjson) => {
-          console.log(kolocationjson);
-          const kolocation = kolocationjson[0].local_names.ko;
-          weatherdes.innerHTML = (`${kolocation} ${temperature}°C`);
-          console.log(kolocation, temperature);
-        })
-    })
-}
-
-wbutton.addEventListener('click', () => {
-  navigator.geolocation.getCurrentPosition(wsuccess, wfail);
-})
-
-window.onload=function () {
-  navigator.geolocation.getCurrentPosition(wsuccess, wfail);
-}
-
-
-//로그인
-function init() {
-  if (location.href.indexOf("token") === -1) {
-    if (!localStorage.getItem("email") || localStorage.getItem("email") === '') {
-      location.href = "loginpage.html";
-    }
-  }else {
-    const token = location.href.split("?")[1].split("&").filter(e => e.split("=")[0] === "token")[0].split("=")[1];
-    const dataBase64 = token.split(".")[1];
-    const data = JSON.parse(decodeURIComponent(escape(window.atob(dataBase64)))).data;
-    localStorage.setItem("email", data.email);
-    localStorage.setItem("num", data.number);
-    localStorage.setItem("name", data.name);
-    const email = localStorage.getItem("email");
-    const num = localStorage.getItem("num");
-    const name = localStorage.getItem("name");
-    const personal_num = num.substring(2, 4).replace(/^0+/, '');
-    const class_num = num.substring(1, 2);
-    const grade = num.substring(0, 1);
-
-    console.log(data);
-    console.log(email);
-    console.log(num);
-    console.log(name);
-    console.log(personal_num);
-    console.log(class_num);
-    console.log(grade);
-  }
-}
-
-window.onload = () => init();
-window.onload = () => timetable()
-
-//시간표
-function timetable(){
-  fetch(
-      `https://dimigo.net/api/timetable/1/3`
-  )
-      .then((timeres) => {
-        return timeres.json();
-      })
-      .then((timejson) =>{
-        console.log(timejson);
-      })
-}
-
-
-
-// const getWeather = (lat, lon) => {
-//   fetch(
-//       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=kr`
-//   )
-//       .then((weatherresponse) => {
-//         return weatherresponse.json();
-//       })
-//       .then((weatherjson) => {
-//         console.log(weatherjson);
-//         const temperature = Math.round(weatherjson.main.temp);
-//         const place = weatherjson.name;
-//         const description = weatherjson.weather[0].description;
