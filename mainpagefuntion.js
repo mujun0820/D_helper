@@ -27,6 +27,7 @@ function init() {
     console.log(grade);
   }
 }
+
 window.onload = () => init();
 
 
@@ -56,6 +57,8 @@ ranbg.addEventListener('click', randomBg)
 function randomBg(){
   bodybg.style.backgroundImage = `url("https://picsum.photos/1920/1080?random=${Math.floor(Math.random() * 100)}")`
 }
+
+window.onload = () => randomBg();
 
   //날짜, 시간 표시
 
