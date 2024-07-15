@@ -1,6 +1,6 @@
 //로그인
 function init() {
-  if (location.href.indexOf("token") === -1) {
+  if (location.href.indexOf("token") === -1 || !localStorage.getItem("email")) {
     if (!localStorage.getItem("email") || localStorage.getItem("email") === '') {
       location.href = "loginpage.html";
     }
